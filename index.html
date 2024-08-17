@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../webfonts/all.css" />
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        form {
+            width: 350px;
+            padding: 30px 15px 15px 15px;
+            box-shadow: 0 2px 5px 2px rgba(0, 0, 0, .6);
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            font-size: 36px;
+            padding: 5px;
+            height: 50px;
+            background-color: rgb(241, 241, 241);
+            text-overflow: ellipsis;
+            text-align: right;
+            font-family: "Orbitron",sans-serif;
+        }
+
+        hr {
+            margin: 15px 0;
+            background-color: silver;
+        }
+
+        form .onoffbtn {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        form .onoffbtn input {
+            outline: none;
+            border: none;
+            width: 60px;
+            height: 30px;
+            border-radius: 10%;
+            font-size: 18px;
+            background-color: red;
+            color: #fff;
+            box-shadow: 2px 2px 8px rgb(136,129,129),inset -2px -2px 6px #000;
+            cursor: pointer;
+        }
+        form .onoffbtn .onbtn{
+            background-color:#2e3dea ;
+        }
+        form .onoffbtn .offbtn:active{
+            font-size: 15px;
+        }
+        .onoffbtn .onbtn:active,
+        .onoffbtn .offbtn:active{
+            box-shadow: 2px 2px 8px rgb(0,0,0),inset -2px -2px 6px rgb(0,0,0);
+        }
+        form .numOpeBtn{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 5px;
+        }
+        form .numOpeBtn input{
+            height: 30px;
+            background-color: rgb(0,0,0);
+            color: #fff;
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: .2s;
+        }
+        form .numOpeBtn input:hover{
+            color: #ecdb3d;
+        }
+        form .numOpeBtn .ope{
+            background-color:rgba(10,41,10,.925);
+        }
+        form .numOpeBtn .clear{
+            background-color: #690505;
+        }
+        form .numOpeBtn .bluebtn{
+            background-color: #01012e
+            ;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="container">
+        <form action="" name="calculator">
+            <input type="text" id="src" placeholder="0" name="screen" disabled />
+            <hr />
+            <div class="onoffbtn">
+                <input type="button" value="off" class="offbtn" onclick="s_off()"/>
+                <input type="button" value="on" class="onbtn" onclick="s_on()"/>
+            </div>
+            <div class="numOpeBtn">
+                <input type="button" value="C" class="clear button" onclick="calculator.screen.value  = '' "/>
+                <input type="button" value="CE" class="clear button" onclick="calculator.screen.value = calculator.screen.value.slice(0,-1)" />
+                <input type="button" value="x!" class="bluebtn button" onclick="factorial()"/>
+                <input type="button" value="&plusmn" class="bluebtn button" onclick="negate()"/>
+
+                <input type="button" value="x&#xb2" class="bluebtn button" onclick="calculator.screen.value = Math.pow(calculator.screen.value,2)" />
+                <input type="button" value="Mod" class="bluebtn button" onclick="calculator.screen.value +='%'"/>
+                <input type="button" value="Abs" class="bluebtn button"  onclick="calculator.screen.value = Math.abs(calculator.screen.value)"/>
+                <input type="button" value="%" class="ope button" onclick="per()"/>
+
+                <input type="button" value="7" class="button" onclick="calculator.screen.value  += '7' "/>
+                <input type="button" value="8" class="button" onclick="calculator.screen.value += '8' "/>
+                <input type="button" value="9" class="button" onclick="calculator.screen.value += '9' "/>
+                <input type="button" value="/" class="ope button"  onclick="calculator.screen.value  += '/' "/>
+
+                <input type="button" value="4" class="button" onclick="calculator.screen.value  += '4' "/>
+                <input type="button" value="5" class="button" onclick="calculator.screen.value  += '5' "/>
+                <input type="button" value="6" class="button" onclick="calculator.screen.value  += '6' "/>
+                <input type="button" value="&times;" class="ope button"  onclick="calculator.screen.value  += '*' "/>
+
+                <input type="button" value="1" class="button" onclick="calculator.screen.value  += '1' "/>
+                <input type="button" value="2" class="button" onclick="calculator.screen.value  += '2' "/>
+                <input type="button" value="3" class="button" onclick="calculator.screen.value  += '3' "/>
+                <input type="button" value="&ndash;" class="ope button"  onclick="calculator.screen.value  += '-' "/>
+
+                <input type="button" value="." class="button" onclick="calculator.screen.value  += '.' "/>
+                <input type="button" value="0" class="button" onclick="calculator.screen.value  += '0' "/>
+                <input type="button" value="00" class="button" onclick="calculator.screen.value  += '00' "/>
+                <input type="button" value="+" class="ope button"  onclick="calculator.screen.value  += '+' "/>
+
+                <input type="button" value="(" class=" bluebtn button"  onclick="calculator.screen.value  += '(' "/>
+                <input type="button" value=")" class=" bluebtn button"  onclick="calculator.screen.value  += ')' "/>
+                <input type="button" value="&radic;" class="ope button" onclick="calculator.screen.value = Math.sqrt(calculator.screen.value)    "/>
+                <input type="button" value="=" class="ope button"  onclick="equal()"/>
+
+            </div>
+        </form>
+    </section>
+    <script>
+    const screen = document.getElementById("src");
+    let btns = document.querySelectorAll(".button");
+    
+    const offscreen=()=>{
+        screen.value = '';
+        screen.style.background = "#636361";
+        screen.style.border =" 1px solid #636361";
+        
+        btns.forEach(btn =>{
+            btn.disabled = true;
+        })
+    }
+    
+    offscreen();
+    function s_off(){
+        offscreen();
+    }
+    function s_on(){
+        screen.style.background = "rgb(241,241,241)";
+        screen.style.border =" 2px solid #c0c0c0";
+        btns.forEach(btn =>{
+            btn.disabled = false;
+        })
+    }
+    function equal(){
+        try {
+            screen.value = eval(screen.value);
+            
+        } catch  {
+            screen.value = "Error!";
+        }
+    }
+    function factorial(){
+        let i,num,f;
+        f=1;
+        num = screen.value;
+        for(i=1;i<=num;i++){
+            f=f*i;
+        }
+        screen.value=f;
+    }
+    function negate(){
+        let num,neg;
+        num = screen.value;
+        neg= -parseFloat(num);
+        screen.value = neg;
+    }
+    function per(){
+        let per,num;
+        num = screen.value;
+        per = eval(num/100);
+        screen.value = per;
+    }
+    </script>
+</body>
+
+</html>
